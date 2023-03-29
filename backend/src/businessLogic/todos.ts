@@ -25,23 +25,21 @@ export async function getTodosForUser(userId: string): Promise<TodoItem[]> {
 export async function createTodo(
     newTodo: CreateTodoRequest,
     userId: string
-):    Promise<TodoItem> {
-    logger.info('createTodo', {newTodo, userId})
-    
+  ): Promise<TodoItem> {
+    logger.info('createTodo', { newTodo, userId })
+  
     const todoId = uuid.v4()
     const createdAt = new Date().toISOString()
-    const s3attachmenturl = attachmentutils.getAttachmentUrl(todoId)
     const newItem = {
-        userId,
-        todoId,
-        createdAt,
-        done: false,
-        attachmentUrl: s3attachmenturl,
-        ...newTodo
+      todoId,
+      userId,
+      createdAt,
+      done: false,
+      attachmentUrl: "",
+      ...newTodo
     }
-return await todosAccess.createTodoItem(newItem)    
-}
-
+    return await todosAccess.createTodoItem(newItem)
+  }  
 
 //write the function to update a todo item
 export async function updateTodo (
