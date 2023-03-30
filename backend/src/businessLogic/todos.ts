@@ -84,5 +84,9 @@ export async function generateNewUploadUrl (
         userId, 
         todoId
     )
+    const url = attachmentutils.getAttachmentUrl(todoId)
+
+    await todosAccess.generateUploadUrl(todoId, userId, url)
+
     return attachmentutils.getUploadUrl(todoId)
 }
